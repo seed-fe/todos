@@ -32,8 +32,8 @@ const mapStateToProps = state => ({
   rootReducer里通过combineReducers合并了todo.js里负责添加todo和切换todo状态的reducer以及visibilityFilter.js里的reducer，
   入口文件index.js中调用createStore创建store时传入了rootReducer，
   容器组件VisibleTodoList向UI组建TodoList注入toggleTodo这个回调方法，在这个回调方法中对toggleTodo这个action进行分发，
-  会被reducer/todo.js里的reducer处理，具体就是case 'TOGGLE_TODO'，切换完成与否的状态
-  用户点击todo项的时候
+  分发后会被reducer/todo.js里的reducer处理，具体就是case 'TOGGLE_TODO'，切换完成与否的状态，更新state
+  用户点击todo项的时候会更新store里的state
 */
 const mapDispatchToProps = dispatch => ({
   toggleTodo: id => dispatch(toggleTodo(id))
@@ -42,7 +42,7 @@ const mapDispatchToProps = function(dispatch) {
   return {
     // 这个toggleTodo是要传入TodoList onClick属性的回调方法
     toggleTodo: function(id) {
-      // 这个toggleTodo是action/index.js里定义的toggleTodo这个action
+      // 这个toggleTodo是action/index.js里定义的toggleTodo这个action，会被dispatch
       return dispatch(toggleTodo(id))
     }
   }
